@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://b0822hupioial"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_8g30k"]
+[ext_resource type="PackedScene" uid="uid://dleyev68lllo0" path="res://player.tscn" id="1_iw0cp"]
+[ext_resource type="PackedScene" uid="uid://dojlqo33yampa" path="res://hud.tscn" id="2_5c0n2"]
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_oqagf"]
+[ext_resource type="Texture2D" uid="uid://gxn223n0m51" path="res://art/sprite_effects_stages_0008.png" id="3_qknwk"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bwja3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tpa5k"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_8g30k")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_oqagf")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+material = SubResource("CanvasItemMaterial_bwja3")
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+material = SubResource("CanvasItemMaterial_tpa5k")
+texture = ExtResource("3_qknwk")
+
+[node name="Player" parent="." instance=ExtResource("1_iw0cp")]
+
+[node name="HUD" parent="." instance=ExtResource("2_5c0n2")]
+
+[connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]
