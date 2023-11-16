@@ -6,6 +6,7 @@ extends Area2D
 var acceleration = 150
 var max_speed = 1000
 #test
+#test test
 
 signal speed_counter(speed)
 signal background_speed_increased(speed)
