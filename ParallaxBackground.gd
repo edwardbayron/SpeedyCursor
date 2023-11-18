@@ -1,6 +1,8 @@
 extends ParallaxBackground
 
-@export var speed = 100.0
+
+var acceleration = 150
+var max_speed = 1000
 
 @export var direction = Vector2.DOWN
 
@@ -13,10 +15,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#var new_offset: Vector2 = get_scroll_offset() + camera_velocity * delta
-	#set_scroll_offset(new_offset)
 	_on_player_background_speed_increased(delta)
 
 func _on_player_background_speed_increased(speed):
-	var new_offset: Vector2 = get_scroll_offset() + camera_velocity * speed
+	var new_offset: Vector2 = get_scroll_offset() + camera_velocity * speed / acceleration
+	
 	set_scroll_offset(new_offset)

@@ -2,11 +2,9 @@ extends Area2D
 
 
 
-@export var speed = 200
+@export var speed = 0
 var acceleration = 150
-var max_speed = 1000
-#test
-#test test
+var max_speed = 15
 
 signal speed_counter(speed)
 signal background_speed_increased(speed)
@@ -59,8 +57,8 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	#position += velocity * delta
+	#position = position.clamp(Vector2.ZERO, screen_size)
 	
 	
 	emit_signal("speed_counter", speed)
