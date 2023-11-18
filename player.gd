@@ -5,6 +5,7 @@ extends Area2D
 @export var speed = 0
 var acceleration = 150
 var max_speed = 15
+var rotation_speed = 1
 
 signal speed_counter(speed)
 signal background_speed_increased(speed)
@@ -19,6 +20,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	var rotation_in_radians = deg_to_rad(rotation)
+	
 	var velocity = Vector2.ZERO
 	if Input.is_action_pressed("move_forward"):
 		velocity.y -= 1
@@ -28,28 +32,28 @@ func _process(delta):
 	else:		
 		if speed > 0:
 			speed -= acceleration * delta
-		velocity.y -= 1
-		#velocity = velocity * speed
+		velocity.y += 1
 	
 	if Input.is_action_pressed("move_reverse"):
-		#velocity.y += 1
-		#speed = 200
-		#velocity.y -= 1
-		velocity.y += -1
-		if speed > -100:
+		
+		if speed > -15:
 			speed -= acceleration * delta
 		elif speed < 0:
 			speed += acceleration * delta
-		velocity += Vector2(0, 1)
+		velocity.y += 1
 	else:
-		acceleration = 50
+		acceleration = 10
 		if speed < 0:
 			speed += acceleration * delta	
+		velocity.y -= 1
 		
 	
 	if Input.is_action_pressed("turn_left"):
-		velocity.x += 1
-	
+		velocity = Vector2(cos(rotation_in_radians), sin(rotation_in_radians)) * -1
+		#rotate(rotation_speed * delta)
+	if Input.is_action_pressed("turn_right"):
+		velocity = Vector2(cos(rotation_in_radians), sin(rotation_in_radians))
+		#rotate(-rotation_speed * delta)
 			
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -57,8 +61,11 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	
-	#position += velocity * delta
-	#position = position.clamp(Vector2.ZERO, screen_size)
+	velocity = velocity.normalized() * speed
+	translate(velocity * delta)
+	
+	position += velocity * delta
+	position = position.clamp(Vector2.ZERO, screen_size)
 	
 	
 	emit_signal("speed_counter", speed)
