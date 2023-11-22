@@ -17,6 +17,8 @@ script = ExtResource("1_8g30k")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 script = ExtResource("2_oqagf")
+direction = null
+camera_velocity = null
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 texture_repeat = 2
@@ -32,13 +34,11 @@ texture = ExtResource("3_8x66b")
 [node name="TimeLineControl" type="Control" parent="ParallaxBackground/ParallaxLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 4.57764e-05
-offset_top = 0.000183105
-offset_right = 4.57764e-05
-offset_bottom = 0.000183105
+offset_right = 40.0
+offset_bottom = 40.0
 script = ExtResource("6_4lc2d")
 
-[node name="TimeLineSprite" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/TimeLineControl"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/TimeLineControl"]
 position = Vector2(239.5, 275.5)
 scale = Vector2(2.385, 2.035)
 texture = ExtResource("7_l3t1k")
@@ -48,5 +48,4 @@ texture = ExtResource("7_l3t1k")
 [node name="HUD" parent="." instance=ExtResource("2_5c0n2")]
 
 [connection signal="background_speed_increased" from="Player" to="ParallaxBackground" method="_on_player_background_speed_increased"]
-[connection signal="spawn_line" from="Player" to="ParallaxBackground/ParallaxLayer/TimeLineControl" method="_on_player_spawn_line"]
 [connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]

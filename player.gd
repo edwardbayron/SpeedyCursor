@@ -1,24 +1,24 @@
 extends Area2D
 
 
-
 @export var speed = 0
-var acceleration = 150
+var acceleration = 1
 var max_speed = 15
 var rotation_speed = 1
 
+var distance_initial = self.get_position()
+var distance_traveled = null
+var distance_to_spawn_line = 100
+
 signal speed_counter(speed)
 signal background_speed_increased(speed)
-
+signal spawn_line()
 
 var screen_size
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	screen_size = get_viewport_rect().size
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
 	var rotation_in_radians = deg_to_rad(rotation)
@@ -28,10 +28,14 @@ func _process(delta):
 		velocity.y -= 1
 		if speed < max_speed:
 			speed += acceleration * delta
-	
+		if distance_traveled == null:
+			distance_traveled = 0
+		distance_traveled += speed * delta
 	else:		
 		if speed > 0:
 			speed -= acceleration * delta
+			if distance_traveled != null:
+				distance_traveled += position.y - distance_to_spawn_line
 		velocity.y += 1
 	
 	if Input.is_action_pressed("move_reverse"):
@@ -58,6 +62,7 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 		$AnimatedSprite2D.play()
+		
 	else:
 		$AnimatedSprite2D.stop()
 	
@@ -67,7 +72,16 @@ func _process(delta):
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
 	
+	print("distance_traveled: "+str(distance_traveled))
+	print("distance_to_spawn_line: "+str(distance_to_spawn_line))
+	print("position: "+str(position))
+	
+	if distance_traveled != null and distance_traveled >= distance_to_spawn_line:
+		emit_signal("spawn_line")
+		distance_traveled = 0
 	
 	emit_signal("speed_counter", speed)
-	emit_signal("background_speed_increased", speed)
+	if position.y > 0:
+		emit_signal("background_speed_increased", speed)
+		
 
