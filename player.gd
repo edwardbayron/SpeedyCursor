@@ -12,7 +12,8 @@ var distance_to_spawn_line = 100
 
 signal speed_counter(speed)
 signal background_speed_increased(speed)
-signal spawn_line()
+signal spawn_line
+
 
 var screen_size
 
@@ -72,9 +73,9 @@ func _process(delta):
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
 	
-	print("distance_traveled: "+str(distance_traveled))
-	print("distance_to_spawn_line: "+str(distance_to_spawn_line))
-	print("position: "+str(position))
+	#print("distance_traveled: "+str(distance_traveled))
+	#print("distance_to_spawn_line: "+str(distance_to_spawn_line))
+	#print("position: "+str(position))
 	
 	if distance_traveled != null and distance_traveled >= distance_to_spawn_line:
 		emit_signal("spawn_line")
@@ -83,5 +84,4 @@ func _process(delta):
 	emit_signal("speed_counter", speed)
 	if position.y > 0:
 		emit_signal("background_speed_increased", speed)
-		
 
