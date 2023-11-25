@@ -1,66 +1,23 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0822hupioial"]
+[gd_scene load_steps=6 format=3 uid="uid://b0822hupioial"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8g30k"]
-[ext_resource type="PackedScene" uid="uid://dleyev68lllo0" path="res://player.tscn" id="1_iw0cp"]
+[ext_resource type="PackedScene" uid="uid://qsxlkxtvsmqk" path="res://player.tscn" id="1_iw0cp"]
 [ext_resource type="PackedScene" uid="uid://dojlqo33yampa" path="res://hud.tscn" id="2_5c0n2"]
-[ext_resource type="Script" path="res://ParallaxBackground.gd" id="2_oqagf"]
-[ext_resource type="Texture2D" uid="uid://drrav045m61w1" path="res://art/kenney_space-shooter-redux/Backgrounds/purple.png" id="3_8x66b"]
-[ext_resource type="Script" path="res://TimelineArea.gd" id="4_8lgbm"]
-[ext_resource type="Texture2D" uid="uid://cthpgcrflbm72" path="res://art/26669-1-finish-line-hd-thumb.png" id="7_l3t1k"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bwja3"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tpa5k"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ylr1u"]
-size = Vector2(475, 76)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0lesj"]
-size = Vector2(66, 64)
+[ext_resource type="PackedScene" uid="uid://dok8f3q0e0jky" path="res://parallax_background.tscn" id="2_p6hoj"]
+[ext_resource type="PackedScene" uid="uid://beru0oa12omu2" path="res://checkpoint.tscn" id="5_we3v6"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_8g30k")
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-script = ExtResource("2_oqagf")
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-texture_repeat = 2
-material = SubResource("CanvasItemMaterial_bwja3")
-motion_mirroring = Vector2(0, 1024)
-
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-material = SubResource("CanvasItemMaterial_tpa5k")
-position = Vector2(240, 515.149)
-scale = Vector2(1.875, 4.00665)
-texture = ExtResource("3_8x66b")
-
-[node name="TimelineArea" type="Area2D" parent="ParallaxBackground/ParallaxLayer"]
-collision_mask = 0
-script = ExtResource("4_8lgbm")
-
-[node name="TimelineAreaSprite" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer/TimelineArea"]
-position = Vector2(239, 212.5)
-scale = Vector2(2.37, 2.525)
-texture = ExtResource("7_l3t1k")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ParallaxBackground/ParallaxLayer/TimelineArea"]
-position = Vector2(239.5, 234)
-scale = Vector2(1, 1)
-shape = SubResource("RectangleShape2D_ylr1u")
-
 [node name="Player" parent="." instance=ExtResource("1_iw0cp")]
+position = Vector2(234, 920)
 
-[node name="PlayerCollisionShape2D" type="CollisionShape2D" parent="Player"]
-position = Vector2(-1, -4)
-shape = SubResource("RectangleShape2D_0lesj")
+[node name="ParallaxBackground2" parent="." instance=ExtResource("2_p6hoj")]
 
 [node name="HUD" parent="." instance=ExtResource("2_5c0n2")]
 
-[connection signal="area_entered" from="ParallaxBackground/ParallaxLayer/TimelineArea" to="ParallaxBackground/ParallaxLayer/TimelineArea" method="_on_area_entered"]
-[connection signal="body_entered" from="ParallaxBackground/ParallaxLayer/TimelineArea" to="ParallaxBackground/ParallaxLayer/TimelineArea" method="_on_body_entered"]
-[connection signal="checkpoint_passed" from="ParallaxBackground/ParallaxLayer/TimelineArea" to="." method="_on_timeline_area_checkpoint_passed"]
-[connection signal="area_shape_entered" from="Player" to="ParallaxBackground/ParallaxLayer/TimelineArea" method="_on_player_area_shape_entered"]
-[connection signal="background_speed_increased" from="Player" to="ParallaxBackground" method="_on_player_background_speed_increased"]
-[connection signal="spawn_line" from="Player" to="ParallaxBackground/ParallaxLayer/TimelineArea" method="_on_player_spawn_line"]
+[node name="Checkpoint" parent="." instance=ExtResource("5_we3v6")]
+position = Vector2(67, 114)
+
+[connection signal="background_speed_increased" from="Player" to="ParallaxBackground2" method="_on_player_background_speed_increased"]
 [connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]

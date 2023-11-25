@@ -1,33 +1,33 @@
-[gd_scene load_steps=5 format=3 uid="uid://dleyev68lllo0"]
+[gd_scene load_steps=5 format=3 uid="uid://qsxlkxtvsmqk"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_snh6l"]
 [ext_resource type="Texture2D" uid="uid://blpouukmj1sha" path="res://icon.svg" id="1_ycitl"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_31cvr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wbey2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_ycitl")
 }],
 "loop": true,
-"name": &"no_animation",
+"name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_axena"]
-size = Vector2(128, 130)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqr1c"]
+size = Vector2(55.25, 55.25)
 
 [node name="Player" type="Area2D"]
-position = Vector2(247, 887)
+position = Vector2(233, 927)
+monitoring = false
+monitorable = false
 script = ExtResource("1_snh6l")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -4)
-scale = Vector2(0.5, 0.5)
-sprite_frames = SubResource("SpriteFrames_31cvr")
-animation = &"no_animation"
+position = Vector2(1, 2)
+scale = Vector2(0.429687, 0.421875)
+sprite_frames = SubResource("SpriteFrames_wbey2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
-scale = Vector2(0.5, 0.5)
-shape = SubResource("RectangleShape2D_axena")
+position = Vector2(2, 1)
+shape = SubResource("RectangleShape2D_jqr1c")

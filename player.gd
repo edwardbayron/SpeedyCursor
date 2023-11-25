@@ -21,10 +21,10 @@ func _ready():
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
-	
 	var rotation_in_radians = deg_to_rad(rotation)
-	
 	var velocity = Vector2.ZERO
+	
+	
 	if Input.is_action_pressed("move_forward"):
 		velocity.y -= 1
 		if speed < max_speed:
@@ -40,7 +40,6 @@ func _process(delta):
 		velocity.y += 1
 	
 	if Input.is_action_pressed("move_reverse"):
-		
 		if speed > -15:
 			speed -= acceleration * delta
 		elif speed < 0:
@@ -51,7 +50,6 @@ func _process(delta):
 		if speed < 0:
 			speed += acceleration * delta	
 		velocity.y -= 1
-		
 	
 	if Input.is_action_pressed("turn_left"):
 		velocity = Vector2(cos(rotation_in_radians), sin(rotation_in_radians)) * -1

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dok8f3q0e0jky"]
+
+[ext_resource type="Script" path="res://ParallaxBackground.gd" id="1_xcwgc"]
+[ext_resource type="Texture2D" uid="uid://drrav045m61w1" path="res://art/kenney_space-shooter-redux/Backgrounds/purple.png" id="2_mc17g"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+layer = -99
+script = ExtResource("1_xcwgc")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+motion_mirroring = Vector2(0, 1017.46)
+
+[node name="ParallaxPicture" type="Sprite2D" parent="ParallaxLayer"]
+position = Vector2(240, 514)
+scale = Vector2(1.86328, 4.00781)
+texture = ExtResource("2_mc17g")

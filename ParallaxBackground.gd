@@ -3,8 +3,6 @@ extends ParallaxBackground
 var acceleration = 150
 var max_speed = 1000
 
-@export var direction = Vector2.DOWN
-
 @export var camera_velocity: Vector2 = Vector2(0, 100)
 
 func _ready():
