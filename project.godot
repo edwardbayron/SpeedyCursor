@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 window/size/viewport_width=480
 window/size/viewport_height=1024
 
+[editor]
+
+movie_writer/movie_file="/Users/eduardbaranov/Documents/GitHub/SpeedyCursor/test.avi"
+
 [input]
 
 move_forward={

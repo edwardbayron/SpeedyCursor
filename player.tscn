@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://qsxlkxtvsmqk"]
+[gd_scene load_steps=6 format=3 uid="uid://dleyev68lllo0"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_snh6l"]
 [ext_resource type="Texture2D" uid="uid://blpouukmj1sha" path="res://icon.svg" id="1_ycitl"]
@@ -17,6 +17,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jqr1c"]
 size = Vector2(55.25, 55.25)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mv5a"]
+size = Vector2(224.75, 216.5)
+
 [node name="Player" type="Area2D"]
 position = Vector2(233, 927)
 monitoring = false
@@ -31,3 +34,12 @@ sprite_frames = SubResource("SpriteFrames_wbey2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 1)
 shape = SubResource("RectangleShape2D_jqr1c")
+
+[node name="PlayerMovementArea" type="Area2D" parent="."]
+position = Vector2(84, 3)
+
+[node name="CollisionMovementArea" type="CollisionShape2D" parent="PlayerMovementArea"]
+position = Vector2(-81, -42)
+shape = SubResource("RectangleShape2D_5mv5a")
+
+[connection signal="area_entered" from="PlayerMovementArea" to="." method="_on_player_movement_area_area_entered"]

@@ -9,6 +9,7 @@ var rotation_speed = 1
 var distance_initial = self.get_position()
 var distance_traveled = null
 var distance_to_spawn_line = 100
+var player_movement_area_size
 
 signal speed_counter(speed)
 signal background_speed_increased(speed)
@@ -18,6 +19,7 @@ signal spawn_line
 var screen_size
 
 func _ready():
+	player_movement_area_size = $CollisionShape2D.shape.extents * 2
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
@@ -68,8 +70,13 @@ func _process(delta):
 	velocity = velocity.normalized() * speed
 	translate(velocity * delta)
 	
-	position += velocity * delta
-	position = position.clamp(Vector2.ZERO, screen_size)
+	var new_position = position + velocity * delta
+	new_position.x = clamp(new_position.x, 0, screen_size.x - player_movement_area_size.x)
+	new_position.y = clamp(new_position.y, 0, screen_size.y - player_movement_area_size.y)
+	
+	position = new_position
+#	position += velocity * delta
+#	position = position.clamp(Vector2.ZERO, screen_size)
 	
 	#print("distance_traveled: "+str(distance_traveled))
 	#print("distance_to_spawn_line: "+str(distance_to_spawn_line))
@@ -82,4 +89,3 @@ func _process(delta):
 	emit_signal("speed_counter", speed)
 	if position.y > 0:
 		emit_signal("background_speed_increased", speed)
-
