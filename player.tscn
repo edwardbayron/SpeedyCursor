@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://player.gd" id="1_snh6l"]
 [ext_resource type="Texture2D" uid="uid://blpouukmj1sha" path="res://icon.svg" id="1_ycitl"]
+[ext_resource type="PackedScene" uid="uid://bjokgmdiwuso1" path="res://player_movement_area.tscn" id="2_dmn88"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wbey2"]
 animations = [{
@@ -14,32 +15,25 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqr1c"]
-size = Vector2(55.25, 55.25)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mv5a"]
-size = Vector2(224.75, 216.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5r45"]
+size = Vector2(55, 54)
 
 [node name="Player" type="Area2D"]
 position = Vector2(233, 927)
-monitoring = false
-monitorable = false
 script = ExtResource("1_snh6l")
+
+[node name="PlayerMovementArea" parent="." instance=ExtResource("2_dmn88")]
+top_level = true
+position = Vector2(234, 899)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 2)
 scale = Vector2(0.429687, 0.421875)
 sprite_frames = SubResource("SpriteFrames_wbey2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 1)
-shape = SubResource("RectangleShape2D_jqr1c")
-
-[node name="PlayerMovementArea" type="Area2D" parent="."]
-position = Vector2(84, 3)
-
-[node name="CollisionMovementArea" type="CollisionShape2D" parent="PlayerMovementArea"]
-position = Vector2(-81, -42)
-shape = SubResource("RectangleShape2D_5mv5a")
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 2)
+shape = SubResource("RectangleShape2D_o5r45")
 
 [connection signal="area_entered" from="PlayerMovementArea" to="." method="_on_player_movement_area_area_entered"]
+[connection signal="area_exited" from="PlayerMovementArea" to="." method="_on_player_movement_area_area_exited"]
