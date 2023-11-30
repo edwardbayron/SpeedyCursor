@@ -2,8 +2,8 @@ extends Area2D
 
 
 @export var speed = 0
-var acceleration = 1
-var max_speed = 15
+var acceleration = 10
+var max_speed = 150
 var rotation_speed = 1
 
 var distance_initial = self.get_position()
@@ -20,7 +20,6 @@ signal spawn_line
 
 func _ready():
 	player_movement_area = $PlayerMovementArea/PlayerMovementCollision
-	#player_movement_area_size = $PlayerMovementArea/PlayerMovementCollision.shape.extents
 	screen_size = get_viewport_rect().size
 
 func _process(delta):
