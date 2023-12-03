@@ -88,12 +88,12 @@ func _process(delta):
 	else:
 		if self.position.y <= top_y + 30:
 			print("STOP TOP")
-			position.y = player_movement_area.global_position.y - player_movement_area.shape.extents.y - 30
+			position.y = player_movement_area.global_position.y - player_movement_area.shape.extents.y - $PlayerCollision.shape.extents.y - 10
 			
 	
 		elif self.position.y >= bottom_y - 30:
 			print("STOP BOTTOM")
-			position.y = player_movement_area.global_position.y + player_movement_area.shape.extents.y + 30
+			position.y = player_movement_area.global_position.y + player_movement_area.shape.extents.y + $PlayerCollision.shape.extents.y + 5
 	
 #	if distance_traveled != null and distance_traveled >= distance_to_spawn_line:
 #		emit_signal("spawn_line")
