@@ -1,18 +1,11 @@
-extends Node
-s
+extends Area2D
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	#$Player.show()
-	pass
+	pass # Replace with function body.
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_player_checkpoint_passed():
-	print("PASSED")
-
-
-func _on_timeline_area_checkpoint_passed():
-	print("PASSED")

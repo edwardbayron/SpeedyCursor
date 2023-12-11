@@ -28,29 +28,23 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	
 	
-	print("top_y: "+str(top_y))
-	print("bottom_y: "+str(bottom_y))
-	print("screen size: "+str(screen_size.y))
+#	print("top_y: "+str(top_y))
+#	print("bottom_y: "+str(bottom_y))
+#	print("screen size: "+str(screen_size.y))
+#	print("player starting position: "+str(self.position.y))
 
 func _process(delta):
 	var rotation_in_radians = deg_to_rad(rotation)
 	var velocity = Vector2.ZERO
 	new_position = position + velocity * delta
 	
-	
-	
 	if Input.is_action_pressed("move_forward"):
 		velocity.y -= 1
 		if speed < max_speed:
 			speed += acceleration * delta
-#		if distance_traveled == null:
-#			distance_traveled = 0
-#		distance_traveled += speed * delta
 	else:		
 		if speed > 0:
 			speed -= acceleration * delta
-#			if distance_traveled != null:
-#				distance_traveled += position.y - distance_to_spawn_line
 		velocity.y += 1
 
 	if Input.is_action_pressed("move_reverse"):
@@ -79,25 +73,19 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	
-	print("self position y: "+str(self.position.y))
-	print("player position in area: "+str(self.position.y - top_y))
-	
+#	print("self position y: "+str(self.position.y))
+#	print("player position in area: "+str(self.position.y - top_y))
+#
 	
 	if is_within_player_movement_area(new_position):
 		position = new_position
 	else:
 		if self.position.y <= top_y + 30:
-			print("STOP TOP")
 			position.y = player_movement_area.global_position.y - player_movement_area.shape.extents.y - $PlayerCollision.shape.extents.y - 10
 			
 	
 		elif self.position.y >= bottom_y - 30:
-			print("STOP BOTTOM")
 			position.y = player_movement_area.global_position.y + player_movement_area.shape.extents.y + $PlayerCollision.shape.extents.y + 5
-	
-#	if distance_traveled != null and distance_traveled >= distance_to_spawn_line:
-#		emit_signal("spawn_line")
-#		distance_traveled = 0
 	
 	velocity = velocity.normalized() * speed
 	translate(velocity * delta)	
