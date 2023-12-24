@@ -11,12 +11,12 @@ position = Vector2(247, 9)
 script = ExtResource("1_rxgy0")
 
 [node name="CheckpointCollisionShape" type="CollisionShape2D" parent="."]
-position = Vector2(-5, 14)
+position = Vector2(234, 12)
 shape = SubResource("RectangleShape2D_y0ocy")
 
 [node name="CheckpointSprite" type="Sprite2D" parent="."]
-position = Vector2(-5.5, 14)
-scale = Vector2(2.385, 1.19)
+position = Vector2(-7.5, -188)
+scale = Vector2(2.395, 1.72)
 texture = ExtResource("2_wc3y4")
-region_enabled = true
+centered = false
 region_rect = Rect2(-455.98, -423.952, 1137.31, 1483.3)

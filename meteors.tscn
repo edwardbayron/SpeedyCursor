@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8rlttq3nnbb0"]
+
+[ext_resource type="Texture2D" uid="uid://bxwiaabsj13wm" path="res://art/Meteors/spaceMeteors_001.png" id="1_8iqqv"]
+[ext_resource type="Script" path="res://meteors.gd" id="1_i8ks4"]
+[ext_resource type="Texture2D" uid="uid://egq0e61h4q8i" path="res://art/Meteors/spaceMeteors_002.png" id="2_bgtf8"]
+[ext_resource type="Texture2D" uid="uid://duk14alvb5plc" path="res://art/Meteors/spaceMeteors_003.png" id="3_k4ja6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7oa2h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bgtf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8iqqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bgtf8")
+}],
+"loop": true,
+"name": &"meteor",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bgtf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8iqqv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bgtf8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k4ja6")
+}],
+"loop": true,
+"name": &"meteor_1",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eab3c"]
+radius = 114.004
+
+[node name="Meteors" type="RigidBody2D"]
+position = Vector2(411, -64)
+scale = Vector2(0.39, 0.39)
+gravity_scale = 0.0
+script = ExtResource("1_i8ks4")
+
+[node name="MeteorSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_7oa2h")
+animation = &"meteor_1"
+
+[node name="MeteorCollisionShape" type="CollisionShape2D" parent="."]
+visibility_layer = 3
+position = Vector2(-2, 4)
+shape = SubResource("CircleShape2D_eab3c")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.249996, 1)
+scale = Vector2(10.825, 10.6)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

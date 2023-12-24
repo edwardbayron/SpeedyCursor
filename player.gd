@@ -20,6 +20,8 @@ signal speed_counter(speed)
 signal background_speed_increased(speed)
 signal spawn_line
 
+signal hit
+
 
 func _ready():
 	player_movement_area = $PlayerMovementArea/PlayerMovementCollision
@@ -39,7 +41,7 @@ func _process(delta):
 	new_position = position + velocity * delta
 	
 	if Input.is_action_pressed("move_forward"):
-		velocity.y -= 1
+		velocity.y -= 0.5
 		if speed < max_speed:
 			speed += acceleration * delta
 	else:		
