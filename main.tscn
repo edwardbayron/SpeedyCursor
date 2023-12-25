@@ -9,7 +9,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_11qpl"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 480, 0, 0, 0, 0, 0, 480, 448, 0, 0, 0, 0, 0, 448, 0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, -192, -120, 0, 0, 0, 0, 648, -120, 0, 0, 0, 0, 664, 1408, 0, 0, 0, 0, -192, 1408, 0, 0, 0, 0, -192, -120)
 }
 point_count = 5
 
@@ -33,6 +33,7 @@ position = Vector2(248, 21)
 curve = SubResource("Curve2D_11qpl")
 
 [node name="MeteorSpawnLocation" type="PathFollow2D" parent="MeteorPath"]
+position = Vector2(-192, -120)
 
 [node name="MeteorTimer" type="Timer" parent="."]
 wait_time = 2.593

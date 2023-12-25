@@ -27,6 +27,7 @@ func _on_player_hit():
 func game_over():
 	pass
 
+
 func new_game():
 	$MeteorTimer.start()
 
