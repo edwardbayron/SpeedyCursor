@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dojlqo33yampa" path="res://hud.tscn" id="2_5c0n2"]
 [ext_resource type="PackedScene" uid="uid://dok8f3q0e0jky" path="res://parallax_background.tscn" id="2_p6hoj"]
 [ext_resource type="PackedScene" uid="uid://beru0oa12omu2" path="res://checkpoint.tscn" id="5_we3v6"]
-[ext_resource type="PackedScene" uid="uid://c8rlttq3nnbb0" path="res://meteors.tscn" id="6_tr8pv"]
+[ext_resource type="PackedScene" path="res://meteors.tscn" id="6_tr8pv"]
 
 [sub_resource type="Curve2D" id="Curve2D_11qpl"]
 _data = {
