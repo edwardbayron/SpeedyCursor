@@ -11,6 +11,6 @@ func _process(delta):
 	pass
 
 func _on_player_spawn_line():
-	#print("SPAWN LINE")
+	print("SPAWN LINE")
 	$CheckpointSprite.show()
 
