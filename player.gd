@@ -1,14 +1,9 @@
 extends Area2D
 
-
 @export var speed = 0
 var acceleration = 10
 var max_speed = 150
-var rotation_speed = 1
-
-var distance_initial = self.get_position()
 var distance_traveled = null
-var distance_to_spawn_line = 100
 var player_movement_area
 var screen_size
 var new_position
@@ -16,31 +11,23 @@ var stopped_at_border
 var top_y
 var bottom_y
 
-var checkpoint_area_scene
-
 signal speed_counter(speed)
 signal background_speed_increased(speed)
 signal spawn_line
-
 signal hit
-
 
 func _ready():
 	player_movement_area = $PlayerMovementArea/PlayerMovementCollision
 	top_y = position.y - player_movement_area.shape.extents.y
 	bottom_y = position.y + player_movement_area.shape.extents.y
 	screen_size = get_viewport_rect().size
-	
-	
-#	print("top_y: "+str(top_y))
-#	print("bottom_y: "+str(bottom_y))
-#	print("screen size: "+str(screen_size.y))
-#	print("player starting position: "+str(self.position.y))
+
 
 func _process(delta):
 	var rotation_in_radians = deg_to_rad(rotation)
 	var velocity = Vector2.ZERO
 	new_position = position + velocity * delta
+	
 	
 	if Input.is_action_pressed("move_forward"):
 		velocity.y -= 0.5
@@ -62,7 +49,7 @@ func _process(delta):
 		if speed < 0:
 			speed += acceleration * delta	
 		velocity.y -= 1
-		
+	
 	if Input.is_action_pressed("move_forward") && Input.is_action_pressed("turn_left"):
 		velocity.y -= 50
 		velocity.x -= 50
@@ -81,12 +68,8 @@ func _process(delta):
 	
 	if Input.is_action_pressed("turn_left"):
 		velocity.x -= 50
-		#velocity = Vector2(cos(rotation_in_radians), sin(rotation_in_radians)) * -1
-		#rotate(rotation_speed * delta)
 	if Input.is_action_pressed("turn_right"):
 		velocity.x += 50
-		#velocity = Vector2(cos(rotation_in_radians), sin(rotation_in_radians))
-		#rotate(-rotation_speed * delta)
 			
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -95,20 +78,6 @@ func _process(delta):
 	else:
 		$AnimatedSprite2D.stop()
 	
-#	print("self position y: "+str(self.position.y))
-#	print("player position in area: "+str(self.position.y - top_y))
-#
-	
-#	if is_within_player_movement_area(new_position):
-#		position = new_position
-#	else:
-#		if self.position.y <= top_y + 30:
-#			position.y = player_movement_area.global_position.y - player_movement_area.shape.extents.y - $PlayerCollision.shape.extents.y - 10
-#
-#
-#		elif self.position.y >= bottom_y - 30:
-#			position.y = player_movement_area.global_position.y + player_movement_area.shape.extents.y + $PlayerCollision.shape.extents.y + 5
-#
 	velocity = velocity.normalized() * speed
 	translate(velocity * delta)	
 	
