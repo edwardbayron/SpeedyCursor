@@ -5,72 +5,44 @@ var distance_traveled_main = 0
 var offset_test_main = 0
 var checkpoint_spawned = false
 var parallax_background_size_main = 0
-var checkpoint
+
 
 const CHECKPOINT_INTERVAL = 100
 var next_checkpoint_distance = CHECKPOINT_INTERVAL
 var checkpoints = []
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	#$Player.show()
-	checkpoint = get_node("CheckpointStaticBody/Sprite2D")
-	checkpoint.position = Vector2(250, 0)
 	next_checkpoint_distance = CHECKPOINT_INTERVAL
 	new_game()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	print("distance_traveled_main: "+str(distance_traveled_main))
-	print("offset_test_main: "+str(offset_test_main))
-	
+
+	print("next_checkpoint_distance: "+str(next_checkpoint_distance))
 	if distance_traveled_main >= next_checkpoint_distance:
-		checkpoint_static_body()
+		spawn_checkpoint()
 		next_checkpoint_distance += CHECKPOINT_INTERVAL
 	
-	#if distance_traveled_main >= parallax_background_size_main:
 	update_checkpoints()
 	
-#	if checkpoint_spawned:
-#		distance_traveled_main = 0
-#		distance_traveled_main += 1
-	
-	#print("distance_traveled_main: "+str(distance_traveled_main))
-	#print("next_checkpoint_distance: "+str(next_checkpoint_distance))
-	#if distance_traveled_main == 100:
-		
-
-
-func _on_player_checkpoint_passed():
-	print("PASSED")
-
-
-func _on_timeline_area_checkpoint_passed():
-	print("PASSED")
-
-
-func _on_player_hit():
-	pass # Replace with function body.
-	
-func game_over():
-	pass
-
-
-func new_game():
-	$MeteorTimer.start()
+	print("distance_traveled_main: "+str(distance_traveled_main))
 
 func _on_parallax_background_2_distance_traveled_y(distance_traveled):
 	distance_traveled_main = distance_traveled
 
-func checkpoint_static_body():
+func spawn_checkpoint():
+	var checkpoint = get_node("CheckpointStaticBody")
 	checkpoint.position = Vector2(0, 0)
 	add_child(checkpoint)
 	checkpoints.append(checkpoint)
-	checkpoint_spawned = true
 
 func update_checkpoints():
-	checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
+	#checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
+	for checkpoint in checkpoints:
+		checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
+		if checkpoint.position.y > get_viewport().size.y:
+			checkpoints.erase(checkpoint)
+			checkpoint.queue_free()
 
 func meteors_start_spawning():
 	pass
@@ -90,3 +62,12 @@ func _on_meteor_timer_timeout():
 
 func _on_parallax_background_2_background_size(parallax_background_size):
 	parallax_background_size_main = parallax_background_size
+	
+func _on_player_checkpoint_passed():
+	print("PASSED")
+
+func _on_timeline_area_checkpoint_passed():
+	print("PASSED")
+	
+func new_game():
+	$MeteorTimer.start()
