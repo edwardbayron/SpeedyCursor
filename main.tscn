@@ -18,7 +18,8 @@ point_count = 5
 script = ExtResource("1_8g30k")
 meteor_scene = ExtResource("6_tr8pv")
 
-[node name="CheckpointStaticBody" type="StaticBody2D" parent="."]
+[node name="CheckpointStaticBody" type="Area2D" parent="."]
+position = Vector2(248, -20)
 
 [node name="Sprite2D" type="Sprite2D" parent="CheckpointStaticBody"]
 texture = ExtResource("7_mf2qy")
@@ -44,9 +45,10 @@ position = Vector2(-192, -120)
 [node name="MeteorTimer" type="Timer" parent="."]
 wait_time = 2.593
 
+[connection signal="area_entered" from="CheckpointStaticBody" to="." method="_on_checkpoint_static_body_area_entered"]
 [connection signal="background_speed_increased" from="Player" to="ParallaxBackground2" method="_on_player_background_speed_increased"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]
+[connection signal="background_size" from="ParallaxBackground2" to="." method="_on_parallax_background_2_background_size"]
 [connection signal="distance_traveled_y" from="ParallaxBackground2" to="." method="_on_parallax_background_2_distance_traveled_y"]
-[connection signal="offset_test_signal" from="ParallaxBackground2" to="." method="_on_parallax_background_2_offset_test_signal"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]

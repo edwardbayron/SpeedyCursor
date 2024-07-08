@@ -3,19 +3,41 @@ extends Node
 @export var meteor_scene : PackedScene
 var distance_traveled_main = 0
 var offset_test_main = 0
+var checkpoint_spawned = false
+var parallax_background_size_main = 0
+var checkpoint
+
+const CHECKPOINT_INTERVAL = 100
+var next_checkpoint_distance = CHECKPOINT_INTERVAL
+var checkpoints = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#$Player.show()
+	checkpoint = get_node("CheckpointStaticBody/Sprite2D")
+	checkpoint.position = Vector2(250, 0)
+	next_checkpoint_distance = CHECKPOINT_INTERVAL
 	new_game()
-	
-	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	print("distance_traveled_main: "+str(distance_traveled_main))
 	print("offset_test_main: "+str(offset_test_main))
-	checkpoint_static_body()
+	
+	if distance_traveled_main >= next_checkpoint_distance:
+		checkpoint_static_body()
+		next_checkpoint_distance += CHECKPOINT_INTERVAL
+	
+	#if distance_traveled_main >= parallax_background_size_main:
+	update_checkpoints()
+	
+#	if checkpoint_spawned:
+#		distance_traveled_main = 0
+#		distance_traveled_main += 1
+	
+	#print("distance_traveled_main: "+str(distance_traveled_main))
+	#print("next_checkpoint_distance: "+str(next_checkpoint_distance))
 	#if distance_traveled_main == 100:
 		
 
@@ -42,18 +64,16 @@ func _on_parallax_background_2_distance_traveled_y(distance_traveled):
 	distance_traveled_main = distance_traveled
 
 func checkpoint_static_body():
-	var checkpoint = get_node("CheckpointStaticBody/Sprite2D")
-	checkpoint.position = Vector2(250, distance_traveled_main)
+	checkpoint.position = Vector2(0, 0)
 	add_child(checkpoint)
+	checkpoints.append(checkpoint)
+	checkpoint_spawned = true
 
-func _on_parallax_background_2_offset_test_signal(offset_test):
-	offset_test_main = offset_test
+func update_checkpoints():
+	checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
 
 func meteors_start_spawning():
 	pass
-
-
-
 
 func _on_meteor_timer_timeout():
 	var meteor = meteor_scene.instantiate()
@@ -68,10 +88,5 @@ func _on_meteor_timer_timeout():
 	add_child(meteor)
 
 
-
-
-
-
-
-
-
+func _on_parallax_background_2_background_size(parallax_background_size):
+	parallax_background_size_main = parallax_background_size
