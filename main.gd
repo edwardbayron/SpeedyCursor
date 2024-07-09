@@ -2,14 +2,21 @@ extends Node
 
 @export var meteor_scene : PackedScene
 var distance_traveled_main = 0
-var offset_test_main = 0
 var checkpoint_spawned = false
-var parallax_background_size_main = 0
+var parallax_background_size_main = 1024
+
+var offset_test_main = Vector2(0, 0)
+var get_scroll_offset_main = Vector2(0, 0)
+var acceleration_main = 1
+var delta_main = 1
+var speed_main = 0
 
 
 const CHECKPOINT_INTERVAL = 100
 var next_checkpoint_distance = CHECKPOINT_INTERVAL
 var checkpoints = []
+
+const SCROLL_SPEED_FACTOR = 0.5
 
 func _ready():
 	#$Player.show()
@@ -17,30 +24,44 @@ func _ready():
 	new_game()
 
 func _process(delta):
-
-	print("next_checkpoint_distance: "+str(next_checkpoint_distance))
+	var scroll_offset = get_scroll_offset_main.y * delta
+	offset_test_main = int((offset_test_main.y + scroll_offset)) % parallax_background_size_main
+	
+	#print("next_checkpoint_distance: "+str(next_checkpoint_distance))
+	
 	if distance_traveled_main >= next_checkpoint_distance:
 		spawn_checkpoint()
 		next_checkpoint_distance += CHECKPOINT_INTERVAL
+		
+	update_checkpoints(scroll_offset)
 	
-	update_checkpoints()
-	
-	print("distance_traveled_main: "+str(distance_traveled_main))
+	#print("distance_traveled_main: "+str(distance_traveled_main))
+	#print("offset_test_main: "+str(offset_test_main))
+
+func _on_parallax_background_2_background_offset_changing(offset, get_scroll_offset, acceleration, delta):
+	offset_test_main = offset
+	get_scroll_offset_main = get_scroll_offset
+	acceleration_main = acceleration
+	delta_main = delta
 
 func _on_parallax_background_2_distance_traveled_y(distance_traveled):
 	distance_traveled_main = distance_traveled
 
 func spawn_checkpoint():
 	var checkpoint = get_node("CheckpointStaticBody")
-	checkpoint.position = Vector2(0, 0)
+	checkpoint.position = Vector2(250, 0)
+	print("Spawning checkpoint at position:", checkpoint.position)
 	add_child(checkpoint)
 	checkpoints.append(checkpoint)
 
-func update_checkpoints():
+func update_checkpoints(scroll_offset):
 	#checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
 	for checkpoint in checkpoints:
-		checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
-		if checkpoint.position.y > get_viewport().size.y:
+		#checkpoint.position.y = distance_traveled_main - CHECKPOINT_INTERVAL
+		#checkpoint.position.y = offset_test_main
+		checkpoint.position.y += scroll_offset * SCROLL_SPEED_FACTOR
+		print("After update:", checkpoint.position.y)
+		if checkpoint.position.y > parallax_background_size_main:
 			checkpoints.erase(checkpoint)
 			checkpoint.queue_free()
 
@@ -59,6 +80,11 @@ func _on_meteor_timer_timeout():
 	meteor.linear_velocity = velocity.rotated(direction)
 	add_child(meteor)
 
+func _on_checkpoint_static_body_area_entered(area):
+	print("checkpoint entered")
+#	for checkpoint in checkpoints:
+#		checkpoints.erase(checkpoint)
+#		checkpoint.queue_free()
 
 func _on_parallax_background_2_background_size(parallax_background_size):
 	parallax_background_size_main = parallax_background_size
@@ -71,3 +97,13 @@ func _on_timeline_area_checkpoint_passed():
 	
 func new_game():
 	$MeteorTimer.start()
+
+
+
+
+
+func _on_player_speed_counter(speed):
+	speed_main = speed
+
+
+

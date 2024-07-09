@@ -87,10 +87,3 @@ func _process(delta):
 
 func is_within_player_movement_area(position):
 	return player_movement_area.global_position.distance_to(position) < player_movement_area.shape.extents.length()
-
-func _on_player_movement_area_area_entered(area):
-	print("entered")
-
-
-func _on_player_movement_area_area_exited(area):
-	print("exited")

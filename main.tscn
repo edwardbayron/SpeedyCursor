@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b0822hupioial"]
+[gd_scene load_steps=10 format=3 uid="uid://b0822hupioial"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_8g30k"]
 [ext_resource type="PackedScene" uid="uid://dleyev68lllo0" path="res://player.tscn" id="1_iw0cp"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://beru0oa12omu2" path="res://checkpoint.tscn" id="5_we3v6"]
 [ext_resource type="PackedScene" uid="uid://c8rlttq3nnbb0" path="res://meteors.tscn" id="6_tr8pv"]
 [ext_resource type="Texture2D" uid="uid://cthpgcrflbm72" path="res://art/26669-1-finish-line-hd-thumb.png" id="7_mf2qy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3l56"]
+size = Vector2(205, 35)
 
 [sub_resource type="Curve2D" id="Curve2D_11qpl"]
 _data = {
@@ -23,6 +26,10 @@ position = Vector2(248, -20)
 
 [node name="Sprite2D" type="Sprite2D" parent="CheckpointStaticBody"]
 texture = ExtResource("7_mf2qy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CheckpointStaticBody"]
+position = Vector2(-2.5, 7.5)
+shape = SubResource("RectangleShape2D_b3l56")
 
 [node name="Player" parent="." instance=ExtResource("1_iw0cp")]
 position = Vector2(234, 920)
@@ -48,7 +55,9 @@ wait_time = 2.593
 [connection signal="area_entered" from="CheckpointStaticBody" to="." method="_on_checkpoint_static_body_area_entered"]
 [connection signal="background_speed_increased" from="Player" to="ParallaxBackground2" method="_on_player_background_speed_increased"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="speed_counter" from="Player" to="." method="_on_player_speed_counter"]
 [connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]
+[connection signal="background_offset_changing" from="ParallaxBackground2" to="." method="_on_parallax_background_2_background_offset_changing"]
 [connection signal="background_size" from="ParallaxBackground2" to="." method="_on_parallax_background_2_background_size"]
 [connection signal="distance_traveled_y" from="ParallaxBackground2" to="." method="_on_parallax_background_2_distance_traveled_y"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]

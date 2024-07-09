@@ -3,13 +3,14 @@ extends ParallaxBackground
 var acceleration = 150
 var max_speed = 1000
 var distance_traveled = Vector2(0, 0)
-var parallax_background_size
+var parallax_background_size = 1024
 var offset_test
 var copy_distance_traveled = Vector2(0, 0)
 var checkpoint_show_on_parallax = 0
 
 signal distance_traveled_y(distance_traveled)
 signal background_size(parallax_background_size)
+signal background_offset_changing(offset, get_scroll_offset, acceleration, delta)
 
 @export var camera_velocity: Vector2 = Vector2(0, 100)
 
@@ -33,10 +34,11 @@ func _process(delta):
 	checkpoint_show_on_parallax = offset_test.y
 	if checkpoint_show_on_parallax >= parallax_background_size:
 		checkpoint_show_on_parallax = 0
-		offset_test = 0
+		#offset_test = 0
 	
 	emit_signal("distance_traveled_y", round(distance_traveled.y))
 	emit_signal("offset_test_signal", parallax_background_size)
+	emit_signal("background_offset_changing", offset_test, get_scroll_offset(), acceleration, delta)
 	
 #	print("delta: "+str(delta))
 	#print("copy_distance_traveled: "+str(round(copy_distance_traveled.y)))
