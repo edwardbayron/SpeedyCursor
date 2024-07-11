@@ -44,6 +44,8 @@ position = Vector2(234, 920)
 position = Vector2(248, 21)
 
 [node name="Meteors" parent="." instance=ExtResource("6_tr8pv")]
+position = Vector2(447, -94)
+max_contacts_reported = 3
 
 [node name="MeteorPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_11qpl")

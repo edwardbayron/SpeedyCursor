@@ -79,7 +79,8 @@ func _on_meteor_timer_timeout():
 	var meteor = meteor_scene.instantiate()
 	var meteor_start_spawn_location = get_node("MeteorPath/MeteorSpawnLocation")
 	meteor_start_spawn_location.progress_ratio = randf()
-	var direction = meteor_start_spawn_location.rotation + PI / 2
+	GameState.meteor_direction = meteor_start_spawn_location.rotation + PI / 2
+	var direction = GameState.meteor_direction
 	meteor.position = meteor_start_spawn_location.position
 	direction += randf_range(-PI / 4, PI / 4)
 	meteor.rotation = direction
@@ -107,3 +108,4 @@ func new_game():
 
 func _on_player_speed_counter(speed):
 	speed_main = speed
+

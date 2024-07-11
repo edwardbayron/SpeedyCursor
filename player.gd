@@ -1,4 +1,4 @@
-extends Area2D
+extends CharacterBody2D
 
 @export var speed = 0
 var acceleration = 10
@@ -18,8 +18,8 @@ signal hit
 
 func _ready():
 	player_movement_area = $PlayerMovementArea/PlayerMovementCollision
-	top_y = position.y - player_movement_area.shape.extents.y
-	bottom_y = position.y + player_movement_area.shape.extents.y
+	#top_y = position.y - player_movement_area.shape.extents.y
+	#bottom_y = position.y + player_movement_area.shape.extents.y
 	screen_size = get_viewport_rect().size
 
 
@@ -51,25 +51,25 @@ func _process(delta):
 		velocity.y -= 1
 	
 	if Input.is_action_pressed("move_forward") && Input.is_action_pressed("turn_left"):
-		velocity.y -= 50
-		velocity.x -= 50
+		velocity.y -= 100
+		velocity.x -= 100
 		
 	if Input.is_action_pressed("move_forward") && Input.is_action_pressed("turn_right"):
-		velocity.y -= 50
-		velocity.x += 50
+		velocity.y -= 100
+		velocity.x += 100
 		
 	if Input.is_action_pressed("move_reverse") && Input.is_action_pressed("turn_left"):
-		velocity.y += 50
-		velocity.x -= 50
+		velocity.y += 100
+		velocity.x -= 100
 		
 	if Input.is_action_pressed("move_reverse") && Input.is_action_pressed("turn_right"):
-		velocity.y += 50
-		velocity.x += 50
+		velocity.y += 100
+		velocity.x += 100
 	
 	if Input.is_action_pressed("turn_left"):
-		velocity.x -= 50
+		velocity.x -= 100
 	if Input.is_action_pressed("turn_right"):
-		velocity.x += 50
+		velocity.x += 100
 			
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
@@ -79,7 +79,11 @@ func _process(delta):
 		$AnimatedSprite2D.stop()
 	
 	velocity = velocity.normalized() * speed
-	translate(velocity * delta)	
+	#translate(velocity * delta)	
+	
+	var collision = move_and_collide(velocity * delta)
+	
+	collision_detect(collision)
 	
 	emit_signal("speed_counter", speed)
 	if position.y > 0:
@@ -87,3 +91,8 @@ func _process(delta):
 
 func is_within_player_movement_area(position):
 	return player_movement_area.global_position.distance_to(position) < player_movement_area.shape.extents.length()
+
+func collision_detect(collision):
+	if collision:
+		print("I collided with ", collision.get_collider().name)
+	

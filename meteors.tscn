@@ -40,12 +40,16 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eab3c"]
-radius = 114.004
+radius = 76.9226
 
 [node name="Meteors" type="RigidBody2D"]
 position = Vector2(411, -64)
 scale = Vector2(0.39, 0.39)
+collision_layer = 2
+collision_mask = 3
 gravity_scale = 0.0
+max_contacts_reported = 20
+contact_monitor = true
 script = ExtResource("1_i8ks4")
 
 [node name="MeteorSprite" type="AnimatedSprite2D" parent="."]
@@ -54,8 +58,10 @@ sprite_frames = SubResource("SpriteFrames_7oa2h")
 animation = &"meteor_1"
 
 [node name="MeteorCollisionShape" type="CollisionShape2D" parent="."]
+light_mask = 2
 visibility_layer = 3
-position = Vector2(-2, 4)
+position = Vector2(-2.56409, 0)
+scale = Vector2(1.078, 1.078)
 shape = SubResource("CircleShape2D_eab3c")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

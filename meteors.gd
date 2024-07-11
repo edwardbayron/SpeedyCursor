@@ -15,3 +15,11 @@ func _process(delta):
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+
+
+func _on_player_body_entered(body):
+	print("ON BODY ENTERED")
+	var meteor = get_node(".")
+	meteor.rotation = PI * 2
+
+
