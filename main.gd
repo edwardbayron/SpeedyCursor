@@ -56,20 +56,20 @@ func _on_parallax_background_2_distance_traveled_y(distance_traveled):
 func update_distance_traveled(scroll_offset):
 	GameState.distance_traveled += scroll_offset
 
-func spawn_checkpoint():
-	var checkpoint = get_node("CheckpointStaticBody")
-	checkpoint.position = Vector2(250, 0)
-	print("Spawning checkpoint at position:", checkpoint.position)
-	add_child(checkpoint)
-	checkpoints.append(checkpoint)
+#func spawn_checkpoint():
+#	var checkpoint = get_node("CheckpointStaticBody")
+#	checkpoint.position = Vector2(250, 0)
+#	print("Spawning checkpoint at position:", checkpoint.position)
+#	add_child(checkpoint)
+#	checkpoints.append(checkpoint)
 
-func update_checkpoints(scroll_offset):
-	for checkpoint in checkpoints:
-		checkpoint.position.y += scroll_offset * SCROLL_SPEED_FACTOR
-		print("After update:", checkpoint.position.y)
-		if checkpoint.position.y > parallax_background_size_main:
-			checkpoints.erase(checkpoint)
-			checkpoint.queue_free()
+#func update_checkpoints(scroll_offset):
+#	for checkpoint in checkpoints:
+#		checkpoint.position.y += scroll_offset * SCROLL_SPEED_FACTOR
+#		print("After update:", checkpoint.position.y)
+#		if checkpoint.position.y > parallax_background_size_main:
+#			checkpoints.erase(checkpoint)
+#			checkpoint.queue_free()
 
 func meteors_start_spawning():
 	pass

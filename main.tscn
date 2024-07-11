@@ -22,14 +22,15 @@ point_count = 5
 script = ExtResource("1_8g30k")
 
 [node name="CheckpointStaticBody" type="Area2D" parent="."]
-position = Vector2(248, -20)
+position = Vector2(249, -135)
+scale = Vector2(-2.43879, 10.9585)
 script = ExtResource("2_0gevs")
 
 [node name="Sprite2D" type="Sprite2D" parent="CheckpointStaticBody"]
 texture = ExtResource("7_mf2qy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CheckpointStaticBody"]
-position = Vector2(-2.5, 7.5)
+position = Vector2(2, 7)
 shape = SubResource("RectangleShape2D_b3l56")
 
 [node name="Player" parent="." instance=ExtResource("1_iw0cp")]
