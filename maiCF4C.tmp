@@ -66,7 +66,6 @@ script = ExtResource("10_a0bqq")
 [connection signal="background_speed_increased" from="Player" to="ParallaxBackground2" method="_on_player_background_speed_increased"]
 [connection signal="hit" from="Player" to="." method="_on_player_hit"]
 [connection signal="player_picked_up_health" from="Player" to="HUD" method="_on_player_player_picked_up_health"]
-[connection signal="player_picked_up_health" from="Player" to="HealthPickup" method="_on_player_player_picked_up_health"]
 [connection signal="speed_counter" from="Player" to="." method="_on_player_speed_counter"]
 [connection signal="speed_counter" from="Player" to="HUD" method="_on_player_speed_counter"]
 [connection signal="background_offset_changing" from="ParallaxBackground2" to="." method="_on_parallax_background_2_background_offset_changing"]
@@ -74,4 +73,3 @@ script = ExtResource("10_a0bqq")
 [connection signal="distance_traveled_y" from="ParallaxBackground2" to="." method="_on_parallax_background_2_distance_traveled_y"]
 [connection signal="timeout" from="MeteorTimer" to="." method="_on_meteor_timer_timeout"]
 [connection signal="body_entered" from="HealthPickup" to="Player" method="_on_health_pickup_body_entered"]
-[connection signal="health_pickup_remove" from="HealthPickup" to="Player" method="_on_health_pickup_health_pickup_remove"]

@@ -16,3 +16,37 @@ offset_top = 30.0
 offset_right = 93.0
 offset_bottom = 56.0
 text = "Speed: 0"
+
+[node name="HealthBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 429.0
+offset_top = 47.0
+offset_right = 470.0
+offset_bottom = 87.0
+rotation = -3.14159
+scale = Vector2(4.72, 1)
+
+[node name="ColorRect" type="ColorRect" parent="HealthBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(0.521569, 1, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="HealthBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(0.521569, 1, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="HealthBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(0.521569, 1, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="HealthBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(0.521569, 1, 0, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="HealthBoxContainer"]
+custom_minimum_size = Vector2(5, 0)
+layout_mode = 2
+color = Color(0.521569, 1, 0, 1)

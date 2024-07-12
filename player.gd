@@ -16,6 +16,9 @@ signal background_speed_increased(speed)
 signal spawn_line
 signal hit
 
+signal player_picked_up_health
+signal player_hit
+
 func _ready():
 	player_movement_area = $PlayerMovementArea/PlayerMovementCollision
 	#top_y = position.y - player_movement_area.shape.extents.y
@@ -95,4 +98,16 @@ func is_within_player_movement_area(position):
 func collision_detect(collision):
 	if collision:
 		print("I collided with ", collision.get_collider().name)
+		emit_signal("player_hit")
 	
+
+
+func _on_health_pickup_body_entered(body):
+	if body.name == "Player":
+		print("ON HEALTH PICKED UP BY PLAYER")
+		emit_signal("player_picked_up_health")
+
+
+func _on_health_pickup_health_pickup_remove(node):
+	remove_child(node)
+	node.queue_free()
